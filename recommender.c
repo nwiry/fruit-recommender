@@ -2,7 +2,10 @@
 #include <stdlib.h>
 #include <math.h>
 #include <string.h>
-#include <ctype.h> 
+#include <ctype.h>
+
+#define STRING_LIMIT 100
+#define FRUIT_ID_LIMIT 100
 
 void calcUserSimilarity(int[][100], int, int, double*);
 void userRecommendation(int[][100], int, int, char[][100][100]);
@@ -65,21 +68,44 @@ void userRecommendation(int users[][100], int numUsers, int targetUser, char rec
     }
 }
 
-int main() {
+int fruitNameToId(char fruitIDs[FRUIT_ID_LIMIT][STRING_LIMIT], const char fruitName[]) {
+	for (int i = 0; i < FRUIT_ID_LIMIT; ++i) {
+		// We've reached the "free space" part of the ID map, so it means we
+		// couldn't find any fruit ID with that name. So we create one.
+		if (fruitIDs[i][0] == '\0') {
+			strcpy(fruitIDs[i], fruitName);
+			return i;
+		}
+
+		// If the current fruit is the same as the fruit name being given, then
+		// return its ID.
+		if (strcmp(fruitIDs[i], fruitName) == 0) {
+			return i;
+		}
+	}
+
+	// We only get here if there are too many fruits
+	printf("Fatal error: too many fruits defined!");
+	exit(1);
+}
+
+int main(void) {
     // Request the number of users
     int numUsers;
     printf("Enter the number of program users: ");
     scanf("%d", &numUsers);
 
-    // Map to store users' fruit choices
-    int users[numUsers][100];
+    // Matrix to store users' fruit choices
+	// Format: [userID][fruitID] -> int (1 if chosen, 0 if not)
+    int users[numUsers][FRUIT_ID_LIMIT];
 
-    // Initialize users array
-    for (int i = 0; i < numUsers; ++i) {
-        for (int j = 0; j < 100; ++j) {
-            users[i][j] = 0;
-        }
-    }
+	// Initialize `users`
+	memset(users, 0, sizeof users);
+
+	// Matrix to store known fruit choices
+	// Format: [fruitID] -> string
+	// Each fruit's name can thus only have up to 99 characters.
+	char fruitIDs[FRUIT_ID_LIMIT][STRING_LIMIT];
 
     // Interactive menu
     while (1) {
@@ -94,7 +120,7 @@ int main() {
         switch (choice) {
             case 1: {
                 int userID;
-                char fruit[100];
+                char fruit[STRING_LIMIT];
 
                 printf("Enter the User ID (1 to %d): ", numUsers);
                 scanf("%d", &userID);
@@ -108,13 +134,21 @@ int main() {
                 printf("Enter the Chosen Fruit: ");
                 scanf("%s", fruit);
 
+				if (strlen(fruit) == 0) {
+					printf("Please, enter a non-empty choice!\n");
+					continue;
+				}
+
                 // Convert fruit to lowercase
                 for (int i = 0; fruit[i]; ++i) {
                     fruit[i] = tolower(fruit[i]);
                 }
 
+				// Get the ID for the fruit.
+				int fruitID = fruitNameToId(fruitIDs, fruit);
+
                 // Mark that the user chose this fruit
-                users[userID - 1][fruit[0] - 'a'] = 1;
+                users[userID - 1][fruitID] = 1;
 
                 printf("Fruit \"%s\" chosen for user [%d].\n", fruit, userID);
                 break;
