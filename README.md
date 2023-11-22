@@ -17,12 +17,12 @@ In different languages, the execution process changes according to the assignmen
 
 To compile and run the same file directly:
 ```go
-go run main.go
+go run recommender.go
 ```
 Or if you prefer to compile separately, run it in your terminal:
 ```go
-go build main.go
-./main
+go build recommender.go
+./recommender
 ```
 ### C
 
