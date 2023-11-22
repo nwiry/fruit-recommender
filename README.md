@@ -37,4 +37,4 @@ gcc recommender.c -o recommender -lm
 
 ## The program research
 
-I chose the topic “The Use of Limits and Derivatives to Improve Recommendation Algorithms on Streaming Platforms” in my Applied Calculus I academic seminar because I wanted to understand in more depth how recommendation algorithms work within the main streaming platforms that we use daily. It was a rich process, as I was able to understand and work directly with the subject, evolving my mathematical and programming skills as a computer scientist.
+I chose the topic “The Use of Limits and Derivatives to Improve Recommendation Algorithms on Streaming Platforms” in my academic seminar in the Applied Calculus I discipline, as I wanted to understand in more depth how recommendation algorithms work within the main streaming platforms we use. this daily. It was a rich process, as I was able to understand and work directly with the subject, evolving my mathematical and programming skills as a computer scientist.
