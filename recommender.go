@@ -61,7 +61,7 @@ func userRecommendation(users map[int]map[string]int, targetUser int) map[int][]
 			// Check the choices of the user for potential recommendations
 			for fr, c := range users[u] {
 				if users[targetUser][fr] == 0 && c == 1 {
-					uR = append(uR, fmt.Sprintf("Recommendation for User %d: Fruit %s", targetUser, fr))
+					uR = append(uR, fmt.Sprintf("Recommendation for User [%d]: Fruit %s", targetUser, fr))
 				}
 			}
 
@@ -123,7 +123,7 @@ func main() {
 			// Mark that the user chose this fruit
 			users[id][fr] = 1
 
-			fmt.Printf("Fruit \"%s\" chosen for user [%d].\n", fr, id)
+			//fmt.Printf("Fruit \"%s\" chosen for user [%d].\n", fr, id)
 
 		case 2:
 			var t int
