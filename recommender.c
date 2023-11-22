@@ -100,7 +100,7 @@ int main() {
                 scanf("%d", &userID);
 
                 // Check if the entered ID is valid
-                if (userID <= 1 || userID > numUsers) {
+                if (userID < 1 || userID > numUsers) {
                     printf("Please, enter a valid User ID!\n");
                     continue;
                 }

@@ -101,7 +101,7 @@ func main() {
 			fmt.Scan(&id)
 
 			// Check if the entered ID is valid
-			if id <= 1 || id > n {
+			if id < 1 || id > n {
 				fmt.Print("Please, enter a valid User ID! ")
 				continue
 			}
